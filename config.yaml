@@ -1,0 +1,23 @@
+# Frisian ASR dataset build config (Common Voice 25.0, fy-NL, CC0).
+# Source: official CV release dir containing clips/ and *.tsv (incl. other.tsv).
+
+cv_dir: ./cv-corpus-25.0-2026-03-09/fy-NL   # local CV release (download from commonvoice.mozilla.org)
+out_dir: ./data                              # built wavs + manifests land here
+hf_repo: LokaalHub/frisian-asr-cv25          # push target (needs valid HF_TOKEN)
+
+target_lang: fy-NL    # NeMo manifest language tag for the Nemotron finetune
+sample_rate: 16000    # NeMo requires 16 kHz mono
+min_duration: 1.0     # seconds; drop shorter
+max_duration: 20.0    # seconds; drop longer
+seed: 42
+
+# Auto-filter for the unvalidated "other" bucket: CTC-decode each clip and keep it
+# only if char error rate vs the known prompt is low enough. A Frisian-specialized
+# model gives a sharper QC signal than generic MMS (facebook/mms-1b-all, lang fry,
+# is the fallback if this model is unavailable).
+filter:
+  enabled: true
+  asr_model: greenw0lf/wav2vec2-large-xls-r-1b-frisian
+  max_cer: 0.25         # keep clips with CER <= this
+  device: auto          # auto | cpu | cuda
+  batch_size: 16

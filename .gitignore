@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# OS
+.DS_Store
+
+# Data & model artifacts (built locally / on HF Jobs, never committed)
+data/
+wav/
+exp/
+cv-corpus-*/
+*.nemo
+*.wav
+*.mp3
+showcase_result.json
+streaming_result.json

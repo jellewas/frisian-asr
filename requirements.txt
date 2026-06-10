@@ -1,0 +1,8 @@
+pandas
+pyyaml
+soundfile
+librosa
+torch
+transformers
+datasets
+huggingface_hub

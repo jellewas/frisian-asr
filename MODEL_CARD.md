@@ -56,9 +56,9 @@ on the [`LokaalHub/frisian-asr-cv22`](https://huggingface.co/datasets/LokaalHub/
 ## TL;DR
 
 Frisian is **not** one of Nemotron 3.5 ASR's 40 supported locales, so the base model cannot
-transcribe it — under any language prompt it produces garbled, Dutch-like text (~83% WER). A
-single full fine-tune on ~40 h of Frisian, conditioned on the closest supported locale slot
-(`nl-NL`, Dutch), takes it to **~20% raw WER at 80 ms streaming** — a **75% relative
+transcribe it — under any language prompt it produces garbled, Dutch-like text (≈83% WER). A
+single full fine-tune on ≈40 h of Frisian, conditioned on the closest supported locale slot
+(`nl-NL`, Dutch), takes it to **≈20% raw WER at 80 ms streaming** — a **75% relative
 reduction** — on a leak-free, speaker- and sentence-disjoint test set.
 
 **Raw WER (%) on held-out Frisian test (3,173 clips), cache-aware streaming. Same evaluation
@@ -82,7 +82,7 @@ for both the base and the fine-tuned model. Lowest-latency streaming, `att_conte
   consumer mics). Expect degradation on spontaneous, conversational, noisy, or far-field audio.
 - **Reported WER is raw** (no text normalization beyond removing the language tag): casing and
   punctuation count as errors. This matches NVIDIA's reporting convention and is *stricter* than
-  a normalized WER (which is ~2 points lower, see [Evaluation](#evaluation)).
+  a normalized WER (which is ≈2 points lower, see [Evaluation](#evaluation)).
 
 ## How to use
 
@@ -132,7 +132,7 @@ Each manifest line: `{"audio_filepath": "...wav", "duration": 1.23, "text": "...
   neighbour (orthographically and phonetically), giving a warm start. Fine-tuning then
   specialises the `nl-NL` slot (and the shared weights) to Frisian.
 - **Tokenizer:** reused unchanged from the base model. NeMo guidance recommends reusing the
-  pretrained tokenizer when the fine-tuning set is small (< 50 h); ours is ~40 h.
+  pretrained tokenizer when the fine-tuning set is small (< 50 h); ours is ≈40 h.
 
 ## Training data
 
@@ -241,10 +241,10 @@ base and fine-tuned models are evaluated identically.
 | `[56, 0]` (80 ms)  | 82.87% | 20.36%     | 75.4%            |
 | `[56, 13]` (1120 ms) | 81.69% | 18.01%   | 77.9%            |
 
-The ~2.3-point spread across the latency ladder (20.4% @ 80 ms → 18.0% @ 1120 ms) matches the
-streaming penalty NVIDIA documents (~9–10% relative degradation at the lowest-latency setting).
-For reference, in **offline / full-context** decoding the fine-tuned model scores ~18.7% raw
-(~17.4% normalized) — essentially equal to the 1120 ms streaming number, as expected. The base
+The ≈2.3-point spread across the latency ladder (20.4% @ 80 ms → 18.0% @ 1120 ms) matches the
+streaming penalty NVIDIA documents (≈9–10% relative degradation at the lowest-latency setting).
+For reference, in **offline / full-context** decoding the fine-tuned model scores ≈18.7% raw
+(≈17.4% normalized) — essentially equal to the 1120 ms streaming number, as expected. The base
 model's own published Dutch (`nl-NL`) WER is 11.46% @ 1120 ms; a lower-resource language riding
 that slot landing at 18.0% @ 1120 ms is a credible result.
 

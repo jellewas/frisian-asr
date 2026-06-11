@@ -241,8 +241,9 @@ base and fine-tuned models are evaluated identically.
 | `[56, 0]` (80 ms)  | 82.87% | 20.36%     | 75.4%            |
 | `[56, 13]` (1120 ms) | 81.69% | 18.01%   | 77.9%            |
 
-The ≈2.3-point spread across the latency ladder (20.4% @ 80 ms → 18.0% @ 1120 ms) matches the
-streaming penalty NVIDIA documents (≈9–10% relative degradation at the lowest-latency setting).
+The ≈2.3-point spread across the latency ladder (20.4% @ 80 ms → 18.0% @ 1120 ms) is the
+expected accuracy-vs-latency tradeoff of cache-aware streaming: less look-ahead means lower
+latency and slightly higher WER. One checkpoint serves the whole ladder.
 For reference, in **offline / full-context** decoding the fine-tuned model scores ≈18.7% raw
 (≈17.4% normalized) — essentially equal to the 1120 ms streaming number, as expected. The base
 model's own published Dutch (`nl-NL`) WER is 11.46% @ 1120 ms; a lower-resource language riding
